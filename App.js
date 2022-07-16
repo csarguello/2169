@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./screens/homeScreen";
@@ -15,10 +15,32 @@ export default function App() {
     false,false,false,false,false,
     false,false,false,false,false,
     false,false,false,false,false,
-    false,false,false,false,false]);
+    false,false,false,false,false,
+    false,false,false,false,false,false,false]);
+
+  const scream = useMemo(() => ({
+    value, setValue
+  }), [value,setValue]);
+
+  //const [sound, setSound] = useState();
   
+   
+  //   shard = false;
+  // }
+
+  //  useEffect(() => {
+  //    return sound
+  //    ? () => {
+  //      console.log('Unloading sound');
+  //      sound.unloadAsync();
+  //    }
+  //    : undefined;
+  //  }, [sound]);
+
+ 
+
   return (
-    <UserContext.Provider value={{value,setValue}}>
+    <UserContext.Provider value={scream}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />

@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Pressable, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import styles from "../styles/stylesheet";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons,AntDesign } from '@expo/vector-icons';
 
 export default function Endless () {
   const [gumba, setGumba] = useState([]);
+  const [temp, setTemp] = useState([]);
   const [result1, setResult1] = useState('?');
   const [result2, setResult2] = useState('?');
   const [result3, setResult3] = useState('?');
@@ -65,6 +66,7 @@ export default function Endless () {
     setTarget(targetNum);
     setCurrentNums(numList);
     setGumba([]);
+    setTemp([]);
     setUsed1(false);
     setUsed2(false);
     setUsed3(false);
@@ -110,41 +112,47 @@ export default function Endless () {
 
   
   // DOES EVERYTHING IMPORTANT
-  const doeverything = value => {
+  const doeverything = (value,cheddar) => {
     if(value == '?')
         return;
     // Deleting values
     if(value == 'X')
     {
-        if(currentNums[0] == gumba[gumba.length-1] && used1)
+        if(currentNums[0] == gumba[gumba.length-1] && used1 && temp[temp.length-1] == 1)
         {
             setUsed1(false);
             setPrez1('#66FFFF');
+            setTemp(temp.slice(0,temp.length-1));
         }
-        else if(currentNums[1] == gumba[gumba.length-1] && used2)
+        else if(currentNums[1] == gumba[gumba.length-1] && used2 && temp[temp.length-1] == 2)
         {    
             setUsed2(false);
             setPrez2('#66FFFF');
+            setTemp(temp.slice(0,temp.length-1));
         }
-        else if(currentNums[2] == gumba[gumba.length-1] && used3)
+        else if(currentNums[2] == gumba[gumba.length-1] && used3 && temp[temp.length-1] == 3)
         {    
             setUsed3(false);
             setPrez3('#66FFFF');
+            setTemp(temp.slice(0,temp.length-1));
         }
-        else if(currentNums[3] == gumba[gumba.length-1] && used4)
+        else if(currentNums[3] == gumba[gumba.length-1] && used4 && temp[temp.length-1] == 4)
         {    
             setUsed4(false);
             setPrez4('#66FFFF');
+            setTemp(temp.slice(0,temp.length-1));
         }
-        else if(result1 == gumba[gumba.length-1] && used5)
+        else if(result1 == gumba[gumba.length-1] && used5 && temp[temp.length-1] == 5)
         {    
             setUsed5(false);
             setPrez5('#66FFFF');
+            setTemp(temp.slice(0,temp.length-1));
         }
-        else if(result2 == gumba[gumba.length-1] && used6)
+        else if(result2 == gumba[gumba.length-1] && used6 && temp[temp.length-1] == 6)
         {    
             setUsed6(false);
             setPrez6('#66FFFF');
+            setTemp(temp.slice(0,temp.length-1));
         }
 
         setGumba(gumba.slice(0,gumba.length-1));
@@ -172,41 +180,53 @@ export default function Endless () {
         }
         else if(!(value == '+' || value == '*' || value == '-') && !(gumba.length == 1 || gumba.length == 4 || gumba.length == 7))
         {
-            if(value == currentNums[0] && used1 == false)
+            if(value == currentNums[0] && used1 == false && cheddar == 1)
             {
                 setGumba([...gumba,value]);
                 setUsed1(true);
                 setPrez1('#666FFF');
+                if(temp.length <= 6)
+                    setTemp([...temp,1]);
             }
-            else if(value == currentNums[1] && used2 == false)
+            else if(value == currentNums[1] && used2 == false && cheddar == 2)
             {
                 setGumba([...gumba,value]);
                 setUsed2(true);
                 setPrez2('#666FFF');
+                if(temp.length <= 6)
+                    setTemp([...temp,2]);
             }
-            else if(value == currentNums[2] && used3 == false)
+            else if(value == currentNums[2] && used3 == false && cheddar == 3)
             {
                 setGumba([...gumba,value]);
                 setUsed3(true);
                 setPrez3('#666FFF');
+                if(temp.length <= 6)
+                    setTemp([...temp,3]);
             }
-            else if(value == currentNums[3] && used4 == false)
+            else if(value == currentNums[3] && used4 == false && cheddar == 4)
             {
                 setGumba([...gumba,value]);
                 setUsed4(true);
                 setPrez4('#666FFF');
+                if(temp.length <= 6)
+                    setTemp([...temp,4]);
             }
-            else if(value == result1 && used5 == false)
+            else if(value == result1 && used5 == false && cheddar == 5)
             {
                 setGumba([...gumba,value]);
                 setUsed5(true);
                 setPrez5('#666FFF');
+                if(temp.length <= 6)
+                    setTemp([...temp,5]);
             }
-            else if(value == result2 && used6 == false)
+            else if(value == result2 && used6 == false && cheddar == 6)
             {
                 setGumba([...gumba,value]);
                 setUsed6(true);
                 setPrez6('#666FFF');
+                if(temp.length <= 6)
+                    setTemp([...temp,6]);
             }
             else return;
         }
@@ -284,8 +304,8 @@ export default function Endless () {
     
   }
   
-  const literallyeverything = value => {
-    doeverything(value);
+  const literallyeverything = (value,cheddar) => {
+    doeverything(value,cheddar);
   }
 
   const poop = StyleSheet.create( {
@@ -386,6 +406,17 @@ export default function Endless () {
     <View style={styles.basics}>
       {/* Top third; target number */}
       <View style={{backgroundColor: "#FFF",alignContent:"center",justifyContent:"center",flex:1}}>
+        <AntDesign style={{position:'absolute', top:0, right:0, padding: 20}} name='questioncircleo' onPress={() => Alert.alert(
+                        'How to Play',
+                        '- Each number can only be used once \n- Each number must be used \n- Signs can be used any amount of times',
+                        [
+                          {text: 'Got it'},
+                        ],
+                        { 
+                          cancelable: true 
+                        }
+                      )} size={24} >
+        </AntDesign>
         <MaterialIcons style={{alignSelf:'center', paddingBottom:20}} name='refresh' size={24} onPress={() => newGame()}>
         </MaterialIcons>
         <Text style={styles.labels}>Target Number:</Text>
@@ -440,29 +471,29 @@ export default function Endless () {
       {/* Bottom third; user input */}
         <View style={styles.container}>
           {/* First 4 numbers */}
-          <Pressable onPress={() => literallyeverything(currentNums[0])}
+          <Pressable onPress={() => literallyeverything(currentNums[0],1)}
             style={poop.numbersPressed1}>
             <Text style={styles.labels}>{currentNums[0]}</Text>
           </Pressable>
-          <Pressable onPress={() => literallyeverything(currentNums[1])}
+          <Pressable onPress={() => literallyeverything(currentNums[1],2)}
             style={poop.numbersPressed2}>
             <Text style={styles.labels}>{currentNums[1]}</Text>
           </Pressable>
-          <Pressable onPress={() => literallyeverything(currentNums[2])}
+          <Pressable onPress={() => literallyeverything(currentNums[2],3)}
             style={poop.numbersPressed3}>
             <Text style={styles.labels}>{currentNums[2]}</Text>
           </Pressable>
-          <Pressable onPress={() => literallyeverything(currentNums[3])}
+          <Pressable onPress={() => literallyeverything(currentNums[3],4)}
             style={poop.numbersPressed4}>
             <Text style={styles.labels}>{currentNums[3]}</Text>
           </Pressable>
 
           {/* Results */}
-          <Pressable onPress={() => literallyeverything(result1)}
+          <Pressable onPress={() => literallyeverything(result1,5)}
             style={poop.numbersPressed5}>
             <Text style={styles.labels}>{result1}</Text>
           </Pressable>
-          <Pressable onPress={() => literallyeverything(result2)}
+          <Pressable onPress={() => literallyeverything(result2,6)}
             style={poop.numbersPressed6}>
             <Text style={styles.labels}>{result2}</Text>
           </Pressable>
