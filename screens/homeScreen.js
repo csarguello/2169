@@ -7,6 +7,19 @@ import { Audio } from 'expo-av';
 export default function HomeScreen({ navigation }) {
     const [openModal, setModal] = useState(false);
     const [isEnabled, setIsEnabled] = useState(false);
+    const [hidden1,setHidden1] = useState(false);
+    const [hidden3, setHidden3] = useState();
+
+    const easterEgg = () => {
+        if(!hidden1)
+            setHidden1(true);
+    }
+
+    const easterEgg2 = () => {
+        if(hidden1)
+            setHidden3("C + A forever <3");
+    }
+
     const toggleSwitch = () => { 
         setIsEnabled(previousState => !previousState);
         if(isEnabled)
@@ -61,6 +74,14 @@ export default function HomeScreen({ navigation }) {
                             borderBottomWidth: StyleSheet.hairlineWidth,
                         }}
                         />
+                    <View style={{height:'30%'}}>
+                    </View>
+                    <Pressable style={{backgroundColor: '#FFFFFF', width: "50%", height: "10%", justifyContent: 'center'}} onPress={() => easterEgg()}>
+                    </Pressable>
+                    <Text style={{alignSelf: 'center', height:'20%'}}>{hidden3}</Text>
+                    <Pressable style={{backgroundColor: '#FFFFFF', width: "50%", height: "10%", justifyContent: 'center'}} onPress={() => easterEgg2()}>
+                    </Pressable>
+                    
                 </View>
             </Modal>
             <View style={{

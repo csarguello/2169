@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState, useMemo } from 'react';
 import styles from "../styles/stylesheet";
 import { UserContext } from '../userContext';
 import { MaterialIcons } from '@expo/vector-icons';
+// import { MMKV } from 'react-native-mmkv';
 
 export default function Story ({ navigation }) {
     const {value,setValue} = useContext(UserContext);
@@ -41,7 +42,12 @@ export default function Story ({ navigation }) {
     const [lock33,setLock33] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
     const [lock34,setLock34] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
     
+    // const storage = new MMKV({
+
+    // });
+
     
+
     const susano = chicken => {
         if(value[chicken-1] == false)
             return;
@@ -63,6 +69,16 @@ export default function Story ({ navigation }) {
     navigation.addListener('focus', () => blank());
 
     const blank = () => {
+        // const numUnlocked = storage.getNumber('unlocked');
+        // if(numUnlocked >= 1)
+        // {
+        //     setLock(2);
+        // }
+        // if(numUnlocked >= 2)
+        // {
+        //     setLock2(3);
+        // }
+        // else if(charlie )
         for(let j = 1; j < value.length; j++)
         {
             if(value[j])

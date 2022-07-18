@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Alert, AsyncStorage } from 'react-native';
 import React, { useState, useContext } from 'react';
 import styles from "../styles/stylesheet";
 import { UserContext } from '../userContext';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
+//import { storage } from '../storage';
 
 export default function Level ({ route }) {
   const [gumba, setGumba] = useState([]);
@@ -40,6 +41,13 @@ export default function Level ({ route }) {
     let bacon = value;
     bacon[target] = true;
     setValue(bacon);
+    // let charlie = 0;
+    //     for(let k = 1; j < value.length; j++)
+    //     {
+    //         if(value[k])
+    //             charlie = charlie + 1;
+    //     }
+    //     storage.set('unlocked', charlie);
     setGumba([]);
     setTemp([]);
     setUsed1(false);
