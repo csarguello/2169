@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Pressable, Alert } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from "../styles/stylesheet";
 import { MaterialIcons,AntDesign } from '@expo/vector-icons';
+import { UserContext } from '../userContext';
 
 export default function Endless () {
-  const [gumba, setGumba] = useState([]);
+  const [mainLogicArray, setmainLogicArray] = useState([]);
   const [temp, setTemp] = useState([]);
   const [result1, setResult1] = useState('?');
   const [result2, setResult2] = useState('?');
@@ -15,12 +16,13 @@ export default function Endless () {
   const [used4, setUsed4] = useState(false);
   const [used5, setUsed5] = useState(false);
   const [used6, setUsed6] = useState(false);
-  const [prez1, setPrez1] = useState('#66FFFF');
-  const [prez2, setPrez2] = useState('#66FFFF');
-  const [prez3, setPrez3] = useState('#66FFFF');
-  const [prez4, setPrez4] = useState('#66FFFF');
-  const [prez5, setPrez5] = useState('#66FFFF');
-  const [prez6, setPrez6] = useState('#66FFFF');
+  const [prez1, setPrez1] = useState('#666');
+  const [prez2, setPrez2] = useState('#666');
+  const [prez3, setPrez3] = useState('#666');
+  const [prez4, setPrez4] = useState('#666');
+  const [prez5, setPrez5] = useState('#666');
+  const [prez6, setPrez6] = useState('#666');
+  const {theme, setTheme} = useContext(UserContext);
 
   const givens = [1,1,1,1];
   const signs = [1,1,1];
@@ -65,7 +67,7 @@ export default function Endless () {
     numList = shuffle(numList);
     setTarget(targetNum);
     setCurrentNums(numList);
-    setGumba([]);
+    setmainLogicArray([]);
     setTemp([]);
     setUsed1(false);
     setUsed2(false);
@@ -73,12 +75,12 @@ export default function Endless () {
     setUsed4(false);
     setUsed5(false);
     setUsed6(false);
-    setPrez1('#66FFFF');
-    setPrez2('#66FFFF');
-    setPrez3('#66FFFF');
-    setPrez4('#66FFFF');
-    setPrez5('#66FFFF');
-    setPrez6('#66FFFF');
+    setPrez1('#666');
+    setPrez2('#666');
+    setPrez3('#666');
+    setPrez4('#666');
+    setPrez5('#666');
+    setPrez6('#666');
     setResult1('?');
     setResult2('?');
     setResult3('?');
@@ -109,134 +111,132 @@ export default function Endless () {
   const [target, setTarget] = useState(targetNum);
   const [currentNums, setCurrentNums] = useState(numList);
 
-
-  
   // DOES EVERYTHING IMPORTANT
-  const doeverything = (value,cheddar) => {
+  const doeverything = (value,btnTracker) => {
     if(value == '?')
         return;
     // Deleting values
     if(value == 'X')
     {
-        if(currentNums[0] == gumba[gumba.length-1] && used1 && temp[temp.length-1] == 1)
+        if(currentNums[0] == mainLogicArray[mainLogicArray.length-1] && used1 && temp[temp.length-1] == 1)
         {
             setUsed1(false);
-            setPrez1('#66FFFF');
+            setPrez1('#666');
             setTemp(temp.slice(0,temp.length-1));
         }
-        else if(currentNums[1] == gumba[gumba.length-1] && used2 && temp[temp.length-1] == 2)
+        else if(currentNums[1] == mainLogicArray[mainLogicArray.length-1] && used2 && temp[temp.length-1] == 2)
         {    
             setUsed2(false);
-            setPrez2('#66FFFF');
+            setPrez2('#666');
             setTemp(temp.slice(0,temp.length-1));
         }
-        else if(currentNums[2] == gumba[gumba.length-1] && used3 && temp[temp.length-1] == 3)
+        else if(currentNums[2] == mainLogicArray[mainLogicArray.length-1] && used3 && temp[temp.length-1] == 3)
         {    
             setUsed3(false);
-            setPrez3('#66FFFF');
+            setPrez3('#666');
             setTemp(temp.slice(0,temp.length-1));
         }
-        else if(currentNums[3] == gumba[gumba.length-1] && used4 && temp[temp.length-1] == 4)
+        else if(currentNums[3] == mainLogicArray[mainLogicArray.length-1] && used4 && temp[temp.length-1] == 4)
         {    
             setUsed4(false);
-            setPrez4('#66FFFF');
+            setPrez4('#666');
             setTemp(temp.slice(0,temp.length-1));
         }
-        else if(result1 == gumba[gumba.length-1] && used5 && temp[temp.length-1] == 5)
+        else if(result1 == mainLogicArray[mainLogicArray.length-1] && used5 && temp[temp.length-1] == 5)
         {    
             setUsed5(false);
-            setPrez5('#66FFFF');
+            setPrez5('#666');
             setTemp(temp.slice(0,temp.length-1));
         }
-        else if(result2 == gumba[gumba.length-1] && used6 && temp[temp.length-1] == 6)
+        else if(result2 == mainLogicArray[mainLogicArray.length-1] && used6 && temp[temp.length-1] == 6)
         {    
             setUsed6(false);
-            setPrez6('#66FFFF');
+            setPrez6('#666');
             setTemp(temp.slice(0,temp.length-1));
         }
 
-        setGumba(gumba.slice(0,gumba.length-1));
+        setmainLogicArray(mainLogicArray.slice(0,mainLogicArray.length-1));
         
-        if(gumba.length <= 3)
+        if(mainLogicArray.length <= 3)
         {
             setResult1('?');
         }
-        else if(gumba.length <= 6)
+        else if(mainLogicArray.length <= 6)
         {
             setResult2('?');
         }
-        else if(gumba.length <= 9)
+        else if(mainLogicArray.length <= 9)
         {
             setResult3('?');
         }
         return;
     }
     // Adding values
-    if(gumba.length <= 8)
+    if(mainLogicArray.length <= 8)
     {
-        if((value == '+' || value == '*' || value == '-') && (gumba.length == 1 || gumba.length == 4 || gumba.length == 7))
+        if((value == '+' || value == '*' || value == '-') && (mainLogicArray.length == 1 || mainLogicArray.length == 4 || mainLogicArray.length == 7))
         {
-            setGumba([...gumba,value]);
+            setmainLogicArray([...mainLogicArray,value]);
         }
-        else if(!(value == '+' || value == '*' || value == '-') && !(gumba.length == 1 || gumba.length == 4 || gumba.length == 7))
+        else if(!(value == '+' || value == '*' || value == '-') && !(mainLogicArray.length == 1 || mainLogicArray.length == 4 || mainLogicArray.length == 7))
         {
-            if(value == currentNums[0] && used1 == false && cheddar == 1)
+            if(value == currentNums[0] && used1 == false && btnTracker == 1)
             {
-                setGumba([...gumba,value]);
+                setmainLogicArray([...mainLogicArray,value]);
                 setUsed1(true);
-                setPrez1('#666FFF');
+                setPrez1('#444');
                 if(temp.length <= 6)
                     setTemp([...temp,1]);
             }
-            else if(value == currentNums[1] && used2 == false && cheddar == 2)
+            else if(value == currentNums[1] && used2 == false && btnTracker == 2)
             {
-                setGumba([...gumba,value]);
+                setmainLogicArray([...mainLogicArray,value]);
                 setUsed2(true);
-                setPrez2('#666FFF');
+                setPrez2('#444');
                 if(temp.length <= 6)
                     setTemp([...temp,2]);
             }
-            else if(value == currentNums[2] && used3 == false && cheddar == 3)
+            else if(value == currentNums[2] && used3 == false && btnTracker == 3)
             {
-                setGumba([...gumba,value]);
+                setmainLogicArray([...mainLogicArray,value]);
                 setUsed3(true);
-                setPrez3('#666FFF');
+                setPrez3('#444');
                 if(temp.length <= 6)
                     setTemp([...temp,3]);
             }
-            else if(value == currentNums[3] && used4 == false && cheddar == 4)
+            else if(value == currentNums[3] && used4 == false && btnTracker == 4)
             {
-                setGumba([...gumba,value]);
+                setmainLogicArray([...mainLogicArray,value]);
                 setUsed4(true);
-                setPrez4('#666FFF');
+                setPrez4('#444');
                 if(temp.length <= 6)
                     setTemp([...temp,4]);
             }
-            else if(value == result1 && used5 == false && cheddar == 5)
+            else if(value == result1 && used5 == false && btnTracker == 5)
             {
-                setGumba([...gumba,value]);
+                setmainLogicArray([...mainLogicArray,value]);
                 setUsed5(true);
-                setPrez5('#666FFF');
+                setPrez5('#444');
                 if(temp.length <= 6)
                     setTemp([...temp,5]);
             }
-            else if(value == result2 && used6 == false && cheddar == 6)
+            else if(value == result2 && used6 == false && btnTracker == 6)
             {
-                setGumba([...gumba,value]);
+                setmainLogicArray([...mainLogicArray,value]);
                 setUsed6(true);
-                setPrez6('#666FFF');
+                setPrez6('#444');
                 if(temp.length <= 6)
                     setTemp([...temp,6]);
             }
             else return;
         }
         // CALCULATE RESULTS
-        if(gumba[6] != null && gumba[7] != null && result3 == '?')
+        if(mainLogicArray[6] != null && mainLogicArray[7] != null && result3 == '?')
         {
-            if(gumba[7] == '+')
+            if(mainLogicArray[7] == '+')
             {
-                setResult3(gumba[6] + value);
-                if(gumba[6] + value == target)
+                setResult3(mainLogicArray[6] + value);
+                if(mainLogicArray[6] + value == target)
                     Alert.alert(
                         'Congratulations!',
                         'Start a new game?',
@@ -249,10 +249,10 @@ export default function Endless () {
                         }
                       );
             }
-            if(gumba[7] == '-')
+            if(mainLogicArray[7] == '-')
             {
-                setResult3(gumba[6] - value);
-                if(gumba[6] - value == target)
+                setResult3(mainLogicArray[6] - value);
+                if(mainLogicArray[6] - value == target)
                     Alert.alert(
                         'Congratulations!',
                         'Start a new game?',
@@ -265,10 +265,10 @@ export default function Endless () {
                         }
                       );
             }
-            if(gumba[7] == '*')
+            if(mainLogicArray[7] == '*')
             {
-                setResult3(gumba[6] * value);
-                if(gumba[6] * value == target)
+                setResult3(mainLogicArray[6] * value);
+                if(mainLogicArray[6] * value == target)
                     Alert.alert(
                         'Congratulations!',
                         'Start a new game?',
@@ -282,34 +282,49 @@ export default function Endless () {
                       );
             }
         }
-        else if(gumba[3] != null && gumba[4] != null && result2 == '?')
+        else if(mainLogicArray[3] != null && mainLogicArray[4] != null && result2 == '?')
         {
-            if(gumba[4] == '+')
-                setResult2(gumba[3] + value);
-            if(gumba[4] == '-')
-                setResult2(gumba[3] - value);
-            if(gumba[4] == '*')
-                setResult2(gumba[3] * value);
+            if(mainLogicArray[4] == '+')
+                setResult2(mainLogicArray[3] + value);
+            if(mainLogicArray[4] == '-')
+                setResult2(mainLogicArray[3] - value);
+            if(mainLogicArray[4] == '*')
+                setResult2(mainLogicArray[3] * value);
         }
-        else if(gumba[0] != null && gumba[1] != null && result1 == '?')
+        else if(mainLogicArray[0] != null && mainLogicArray[1] != null && result1 == '?')
         {
-            if(gumba[1] == '+')
-                setResult1(gumba[0] + value);
-            if(gumba[1] == '-')
-                setResult1(gumba[0] - value);
-            if(gumba[1] == '*')
-                setResult1(gumba[0] * value);
+            if(mainLogicArray[1] == '+')
+                setResult1(mainLogicArray[0] + value);
+            if(mainLogicArray[1] == '-')
+                setResult1(mainLogicArray[0] - value);
+            if(mainLogicArray[1] == '*')
+                setResult1(mainLogicArray[0] * value);
         }
     }
     
   }
   
-  const literallyeverything = (value,cheddar) => {
-    doeverything(value,cheddar);
+  const literallyeverything = (value,btnTracker) => {
+    doeverything(value,btnTracker);
   }
 
-  const poop = StyleSheet.create( {
+  const pressedStyles = StyleSheet.create( {
     numbersPressed1: {
+        backgroundColor: prez1,
+        width: "15%",
+        height: "20%",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        justifyContent: 'center',
+        shadowColor: '#171717',
+        shadowOffset: {width: 2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        elevation: 5
+    },
+    numbersPressed1Dark: {
         backgroundColor: prez1,
         width: "15%",
         height: "20%",
@@ -405,8 +420,8 @@ export default function Endless () {
     
     <View style={styles.basics}>
       {/* Top third; target number */}
-      <View style={{backgroundColor: "#FFF",alignContent:"center",justifyContent:"center",flex:1}}>
-        <AntDesign style={{position:'absolute', top:0, right:0, padding: 20}} name='questioncircleo' onPress={() => Alert.alert(
+      <View style={theme == 'light' ? styles.topThird : styles.topThirdDark}>
+        <AntDesign style={theme == 'light' ? styles.infoBut : styles.infoButDark} name='questioncircleo' onPress={() => Alert.alert(
                         'How to Play',
                         '- Each number can only be used once \n- Each number must be used \n- Signs can be used any amount of times',
                         [
@@ -417,105 +432,105 @@ export default function Endless () {
                         }
                       )} size={24} >
         </AntDesign>
-        <MaterialIcons style={{alignSelf:'center', paddingBottom:20}} name='refresh' size={24} onPress={() => newGame()}>
+        <MaterialIcons style={theme == 'light' ? styles.refreshBut : styles.refreshButDark} name='refresh' size={24} onPress={() => newGame()}>
         </MaterialIcons>
-        <Text style={styles.labels}>Target Number:</Text>
-        <Text style={{fontSize:50,fontWeight:"bold",textAlign:"center"}}>{target}</Text>
+        <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>Target Number:</Text>
+        <Text style={theme == 'light' ? styles.target : styles.targetDark}>{target}</Text>
       </View>
 
       {/* Middle third; grid */}
-      <View style={styles.container}>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[0]}</Text>
+      <View style={theme == 'light' ? styles.container : styles.containerDark}>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[0]}</Text>
         </Pressable>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[1]}</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[1]}</Text>
         </Pressable>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[2]}</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[2]}</Text>
         </Pressable>
-          <Text style={styles.labels}>=</Text>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{result1}</Text>
-        </Pressable>
-        <Text style={styles.br}/>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[3]}</Text>
-        </Pressable>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[4]}</Text>
-        </Pressable>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[5]}</Text>
-        </Pressable>
-        <Text style={styles.labels}>=</Text>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{result2}</Text>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>=</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{result1}</Text>
         </Pressable>
         <Text style={styles.br}/>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[6]}</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[3]}</Text>
         </Pressable>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[7]}</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[4]}</Text>
         </Pressable>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{gumba[8]}</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[5]}</Text>
         </Pressable>
-        <Text style={styles.labels}>=</Text>
-        <Pressable style={styles.placeholders}>
-          <Text style={styles.labels}>{result3}</Text>
+        <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>=</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{result2}</Text>
+        </Pressable>
+        <Text style={styles.br}/>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[6]}</Text>
+        </Pressable>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[7]}</Text>
+        </Pressable>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{mainLogicArray[8]}</Text>
+        </Pressable>
+        <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>=</Text>
+        <Pressable style={theme == 'light' ? styles.placeholders : styles.placeholdersDark}>
+          <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{result3}</Text>
         </Pressable>
       </View>
 
       {/* Bottom third; user input */}
-        <View style={styles.container}>
+        <View style={theme == 'light' ? styles.container : styles.containerDark}>
           {/* First 4 numbers */}
           <Pressable onPress={() => literallyeverything(currentNums[0],1)}
-            style={poop.numbersPressed1}>
-            <Text style={styles.labels}>{currentNums[0]}</Text>
+            style={pressedStyles.numbersPressed1}>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{currentNums[0]}</Text>
           </Pressable>
           <Pressable onPress={() => literallyeverything(currentNums[1],2)}
-            style={poop.numbersPressed2}>
-            <Text style={styles.labels}>{currentNums[1]}</Text>
+            style={pressedStyles.numbersPressed2}>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{currentNums[1]}</Text>
           </Pressable>
           <Pressable onPress={() => literallyeverything(currentNums[2],3)}
-            style={poop.numbersPressed3}>
-            <Text style={styles.labels}>{currentNums[2]}</Text>
+            style={pressedStyles.numbersPressed3}>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{currentNums[2]}</Text>
           </Pressable>
           <Pressable onPress={() => literallyeverything(currentNums[3],4)}
-            style={poop.numbersPressed4}>
-            <Text style={styles.labels}>{currentNums[3]}</Text>
+            style={pressedStyles.numbersPressed4}>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{currentNums[3]}</Text>
           </Pressable>
 
           {/* Results */}
           <Pressable onPress={() => literallyeverything(result1,5)}
-            style={poop.numbersPressed5}>
-            <Text style={styles.labels}>{result1}</Text>
+            style={pressedStyles.numbersPressed5}>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{result1}</Text>
           </Pressable>
           <Pressable onPress={() => literallyeverything(result2,6)}
-            style={poop.numbersPressed6}>
-            <Text style={styles.labels}>{result2}</Text>
+            style={pressedStyles.numbersPressed6}>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{result2}</Text>
           </Pressable>
 
           {/* Signs */}
           <Text style={styles.br}/>
           <Pressable onPress={() => doeverything('+')}
             style={({pressed}) => pressed ? styles.numbersPressed : styles.numbers}>
-            <Text style={styles.labels}>+</Text>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>+</Text>
           </Pressable>
           <Pressable onPress={() => doeverything('-')}
             style={({pressed}) => pressed ? styles.numbersPressed : styles.numbers}>
-            <Text style={styles.labels}>-</Text>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>-</Text>
           </Pressable>
           <Pressable onPress={() => doeverything('*')}
             style={({pressed}) => pressed ? styles.numbersPressed : styles.numbers}>
-            <Text style={styles.labels}>*</Text>
+            <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>*</Text>
           </Pressable>
           {/* DELETE */}
           <Pressable onPress={() => doeverything('X')}
             style={({pressed}) => pressed ? styles.numbersPressed : styles.numbers}>
-            <MaterialIcons style={{alignSelf:'center'}} name='backspace' size={24} >
+            <MaterialIcons style={theme == 'light' ? styles.deleteBut : styles.deleteButDark} name='backspace' size={24} >
             </MaterialIcons>
           </Pressable>
           {/* 2 other numbers */}

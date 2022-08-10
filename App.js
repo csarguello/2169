@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useState, useMemo } from 'react';
+import { NavigationContainer, DarkTheme, DefaultTheme} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./screens/homeScreen";
 import Endless from "./screens/endless";
@@ -10,38 +10,15 @@ import { UserContext } from './userContext';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [value, setValue] = useState([true,false,false,false,false,
-    false,false,false,false,false,
-    false,false,false,false,false,
-    false,false,false,false,false,
-    false,false,false,false,false,
-    false,false,false,false,false,
-    false,false,false,false,false,false,false]);
+  const [theme, setTheme] = useState('light');
 
-  const scream = useMemo(() => ({
-    value, setValue
-  }), [value,setValue]);
-
-  //const [sound, setSound] = useState();
-  
-   
-  //   shard = false;
-  // }
-
-  //  useEffect(() => {
-  //    return sound
-  //    ? () => {
-  //      console.log('Unloading sound');
-  //      sound.unloadAsync();
-  //    }
-  //    : undefined;
-  //  }, [sound]);
-
- 
+  const firstMemo = useMemo(() => ({
+    theme, setTheme
+  }), [theme,setTheme]);
 
   return (
-    <UserContext.Provider value={scream}>
-    <NavigationContainer>
+    <UserContext.Provider value={firstMemo}>
+    <NavigationContainer theme={theme == 'light' ? DefaultTheme : DarkTheme}>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Endless" component={Endless} />

@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, Button, Pressable, ScrollView } from 'react-native';
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import { Text, View, Pressable, ScrollView } from 'react-native';
+import React, { useContext, useState } from 'react';
 import styles from "../styles/stylesheet";
 import { UserContext } from '../userContext';
 import { MaterialIcons } from '@expo/vector-icons';
-// import { MMKV } from 'react-native-mmkv';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Story ({ navigation }) {
-    const {value,setValue} = useContext(UserContext);
+    const {theme,setTheme} = useContext(UserContext);
     const [lock,setLock] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
     const [lock2,setLock2] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
     const [lock3,setLock3] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
@@ -41,285 +41,310 @@ export default function Story ({ navigation }) {
     const [lock32,setLock32] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
     const [lock33,setLock33] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
     const [lock34,setLock34] = useState(<MaterialIcons style={{alignSelf:'center'}} name='lock' size={24}></MaterialIcons>);
-    
-    // const storage = new MMKV({
+    const [progession, setProgression] = useState(0);
 
-    // });
-
-    
-
-    const susano = chicken => {
-        if(value[chicken-1] == false)
+    const getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('unlocked')
+          if(value !== null) {
+            setProgression(parseInt(value));
+          }
+        if(progession >= 1)
+        {
+            setLock(2);
+        }
+        if(progession >= 2)
+        {
+            setLock2(3);
+        }
+        if(progession >= 3)
+        {
+            setLock3(4);
+        }
+        if(progession >= 4)
+        {
+            setLock4(5);
+        }
+        if(progession >= 5)
+        {
+            setLock5(6);
+        }
+        if(progession >= 6)
+        {
+            setLock6(7);
+        }
+        if(progession >= 7)
+        {
+            setLock7(8);
+        }
+        if(progession >= 8)
+        {
+            setLock8(9);
+        }
+        if(progession >= 9)
+        {
+            setLock9(10);
+        }
+        if(progession >= 10)
+        {
+            setLock10(11);
+        }
+        if(progession >= 11)
+        {
+            setLock11(12);
+        }
+        if(progession >= 12)
+        {
+            setLock12(13);
+        }
+        if(progession >= 13)
+        {
+            setLock13(14);
+        }
+        if(progession >= 14)
+        {
+            setLock14(15);
+        }
+        if(progession >= 15)
+        {
+            setLock15(16);
+        }
+        if(progession >= 16)
+        {
+            setLock16(17);
+        }
+        if(progession >= 17)
+        {
+            setLock17(18);
+        }
+        if(progession >= 18)
+        {
+            setLock18(19);
+        }
+        if(progession >= 19)
+        {
+            setLock19(20);
+        }
+        if(progession >= 20)
+        {
+            setLock20(21);
+        }
+        if(progession >= 21)
+        {
+            setLock21(22);
+        }
+        if(progession >= 22)
+        {
+            setLock22(23);
+        }
+        if(progession >= 23)
+        {
+            setLock23(24);
+        }
+        if(progession >= 24)
+        {
+            setLock24(25);
+        }
+        if(progession >= 25)
+        {
+            setLock25(26);
+        }
+        if(progession >= 26)
+        {
+            setLock26(27);
+        }
+        if(progession >= 27)
+        {
+            setLock27(28);
+        }
+        if(progession >= 28)
+        {
+            setLock28(29);
+        }
+        if(progession >= 29)
+        {
+            setLock29(30);
+        }
+        if(progession >= 30)
+        {
+            setLock30(31);
+        }
+        if(progession >= 31)
+        {
+            setLock31(32);
+        }
+        if(progession >= 32)
+        {
+            setLock32(33);
+        }
+        if(progession >= 33)
+        {
+            setLock33(34);
+        }
+        if(progession >= 34)
+        {
+            setLock34(35);
+        }
+        } catch(e) {
+          // error reading value
+        }
+      }
+      
+    // Function that gets called upon clicking a lvl to go to it
+    const goToLvl = lvlTarget => {
+        if(!(lvlTarget-1 <= progession))
             return;
-        if(chicken == 31)
-            chicken = 50;
-        if(chicken == 32)
-            chicken = 65;
-        if(chicken == 33)
-            chicken = 81;
-        if(chicken == 34)
-            chicken = 117;
-        if(chicken == 35)
-            chicken = 162;
+        if(lvlTarget == 31)
+            lvlTarget = 50;
+        if(lvlTarget == 32)
+            lvlTarget = 65;
+        if(lvlTarget == 33)
+            lvlTarget = 81;
+        if(lvlTarget == 34)
+            lvlTarget = 107;
+        if(lvlTarget == 35)
+            lvlTarget = 162;
         
-        navigation.navigate("Level",{targ: chicken});
+        navigation.navigate("Level",{targ: lvlTarget});
     }
 
     // Unlocks level upon return to this screen
     navigation.addListener('focus', () => blank());
+    getData();
 
     const blank = () => {
-        // const numUnlocked = storage.getNumber('unlocked');
-        // if(numUnlocked >= 1)
-        // {
-        //     setLock(2);
-        // }
-        // if(numUnlocked >= 2)
-        // {
-        //     setLock2(3);
-        // }
-        // else if(charlie )
-        for(let j = 1; j < value.length; j++)
-        {
-            if(value[j])
-            {
-                switch(j) {
-                    case 1:
-                        setLock(2);
-                        break;
-                    case 2:
-                        setLock2(3);
-                        break;
-                    case 3:
-                        setLock3(4);
-                        break;
-                    case 4:
-                        setLock4(5);
-                        break;
-                    case 5:
-                        setLock5(6);
-                        break;
-                    case 6:
-                        setLock6(7);
-                        break;
-                    case 7:
-                        setLock7(8);
-                        break;
-                    case 8:
-                        setLock8(9);
-                        break;
-                    case 9:
-                        setLock9(10);
-                        break;
-                    case 10:
-                        setLock10(11);
-                        break;
-                    case 11:
-                        setLock11(12);
-                        break;
-                    case 12:
-                        setLock12(13);
-                        break;
-                    case 13:
-                        setLock13(14);
-                        break;
-                    case 14:
-                        setLock14(15);
-                        break;
-                    case 15:
-                        setLock15(16);
-                        break;
-                    case 16:
-                        setLock16(17);
-                        break;
-                    case 17:
-                        setLock17(18);
-                        break;
-                    case 18:
-                        setLock18(19);
-                        break;
-                    case 19:
-                        setLock19(20);
-                        break;
-                    case 20:
-                        setLock20(21);
-                        break;
-                    case 21:
-                        setLock21(22);
-                        break;
-                    case 22:
-                        setLock22(23);
-                        break;
-                    case 23:
-                        setLock23(24);
-                        break;    
-                    case 24:
-                        setLock24(25);
-                        break;
-                    case 25:
-                        setLock25(26);
-                        break;
-                    case 26:
-                        setLock26(27);
-                        break;
-                    case 27:
-                        setLock27(28);
-                        break;
-                    case 28:
-                        setLock28(29);
-                        break;
-                    case 29:
-                        setLock29(30);
-                        break;   
-                    case 30:
-                        setLock30(31);
-                        break;
-                    case 31:
-                        setLock31(32);
-                        break;
-                    case 32:
-                        setLock32(33);
-                        break;
-                    case 33:
-                        setLock33(34);
-                        break;
-                    case 34:
-                        setLock34(35);
-                        break;     
-                }
-            }
-        }
+        getData();
     }
     
     return (
-        <ScrollView style={{backgroundColor:"#FFF"}}>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(1)}>
-                    <Text style={styles.labels}>1</Text>
+        <ScrollView style={theme == 'light' ? styles.scrollBG : styles.scrollBGDark}>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(1)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>1</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(2)}>
-                    <Text style={styles.labels}>{lock}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(2)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(3)}>
-                <Text style={styles.labels}>{lock2}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(3)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock2}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(4)}>
-                <Text style={styles.labels}>{lock3}</Text>
-                </Pressable>
-            </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(5)}> 
-                    <Text style={styles.labels}>{lock4}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(6)}>
-                    <Text style={styles.labels}>{lock5}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(7)}>
-                    <Text style={styles.labels}>{lock6}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(8)}>
-                    <Text style={styles.labels}>{lock7}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(4)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock3}</Text>
                 </Pressable>
             </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(9)}>
-                    <Text style={styles.labels}>{lock8}</Text>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(5)}> 
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock4}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(10)}>
-                    <Text style={styles.labels}>{lock9}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(6)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock5}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(11)}>
-                    <Text style={styles.labels}>{lock10}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(7)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock6}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(12)}>
-                    <Text style={styles.labels}>{lock11}</Text>
-                </Pressable>
-            </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(13)}>
-                    <Text style={styles.labels}>{lock12}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(14)}>
-                    <Text style={styles.labels}>{lock13}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(15)}>
-                    <Text style={styles.labels}>{lock14}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(16)}>
-                    <Text style={styles.labels}>{lock15}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(8)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock7}</Text>
                 </Pressable>
             </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(17)}>
-                    <Text style={styles.labels}>{lock16}</Text>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(9)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock8}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(18)}>
-                    <Text style={styles.labels}>{lock17}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(10)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock9}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(19)}>
-                    <Text style={styles.labels}>{lock18}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(11)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock10}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(20)}>
-                    <Text style={styles.labels}>{lock19}</Text>
-                </Pressable>
-            </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(21)}>
-                    <Text style={styles.labels}>{lock20}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(22)}>
-                    <Text style={styles.labels}>{lock21}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(23)}>
-                    <Text style={styles.labels}>{lock22}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(24)}>
-                    <Text style={styles.labels}>{lock23}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(12)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock11}</Text>
                 </Pressable>
             </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(25)}>
-                    <Text style={styles.labels}>{lock24}</Text>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(13)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock12}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(26)}>
-                    <Text style={styles.labels}>{lock25}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(14)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock13}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(27)}>
-                    <Text style={styles.labels}>{lock26}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(15)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock14}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(28)}>
-                    <Text style={styles.labels}>{lock27}</Text>
-                </Pressable>
-            </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(29)}>
-                    <Text style={styles.labels}>{lock28}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(30)}>
-                    <Text style={styles.labels}>{lock29}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(16)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock15}</Text>
                 </Pressable>
             </View>
-            <View style={styles.levelsContainer}>
-                <Text style={styles.labels}>Bonus Levels</Text>
-            </View>
-            <View style={styles.levelsContainer}>
-                <Pressable style={styles.levels} onPress={() => susano(31)}>
-                    <Text style={styles.labels}>{lock30}</Text>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(17)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock16}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(32)}>
-                    <Text style={styles.labels}>{lock31}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(18)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock17}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(33)}>
-                    <Text style={styles.labels}>{lock32}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(19)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock18}</Text>
                 </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(34)}>
-                    <Text style={styles.labels}>{lock33}</Text>
-                </Pressable>
-                <Pressable style={styles.levels} onPress={() => susano(35)}>
-                    <Text style={styles.labels}>{lock34}</Text>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(20)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock19}</Text>
                 </Pressable>
             </View>
-            <View style={styles.levelsContainer}></View>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(21)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock20}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(22)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock21}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(23)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock22}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(24)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock23}</Text>
+                </Pressable>
+            </View>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(25)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock24}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(26)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock25}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(27)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock26}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(28)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock27}</Text>
+                </Pressable>
+            </View>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(29)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock28}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(30)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock29}</Text>
+                </Pressable>
+            </View>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>Bonus Levels</Text>
+            </View>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(31)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock30}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(32)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock31}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(33)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock32}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(34)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock33}</Text>
+                </Pressable>
+                <Pressable style={theme == 'light' ? styles.levels : styles.levelsDark} onPress={() => goToLvl(35)}>
+                    <Text style={theme == 'light' ? styles.labels : styles.labelsDark}>{lock34}</Text>
+                </Pressable>
+            </View>
+            <View style={theme == 'light' ? styles.levelsContainer : styles.levelsContainerDark}></View>
         </ScrollView>
     
     );
